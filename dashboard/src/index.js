@@ -14,3 +14,4 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
+const BASE_URL = process.env.REACT_APP_API_URL;
