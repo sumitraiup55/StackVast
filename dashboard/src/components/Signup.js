@@ -7,13 +7,12 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3002/api/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
-    const data = await res.json();
-    setMessage(data.message);
+    try {
+      const res = await axiosInstance.post('/api/auth/signup', { username, password });
+      setMessage(res.data.message);
+    } catch (err) {
+      setMessage('Signup failed');
+    }
   };
 
   return (

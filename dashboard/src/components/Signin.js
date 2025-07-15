@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
+import axiosInstance from '../axios';
+import { useNavigate } from 'react-router-dom';
 
 function Signin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3002/api/auth/signin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
-    const data = await res.json();
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      setMessage('Signin successful!');
-    } else {
-      setMessage(data.message || 'Signin failed');
+    try {
+      const res = await axiosInstance.post('/api/auth/signin', { username, password });
+      if (res.data.token) {
+        localStorage.setItem('token', res.data.token);
+        setMessage('Signin successful!');
+        navigate('/'); // Redirect to dashboard
+      } else {
+        setMessage(res.data.message || 'Signin failed');
+      }
+    } catch (err) {
+      setMessage('Signin failed');
     }
   };
 
