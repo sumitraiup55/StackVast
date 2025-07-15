@@ -16,9 +16,17 @@ const authRoutes = require('./auth');
 const PORT =process.env.PORT || 3002;
 const URI =process.env.MONGO_URL;
 
+
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://stack-vast-zekz.vercel.app',
+    'https://stack-vast.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
