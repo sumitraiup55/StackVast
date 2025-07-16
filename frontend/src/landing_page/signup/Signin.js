@@ -9,7 +9,7 @@ function Signin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:3002/api/auth/signin', {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/signin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -19,7 +19,7 @@ function Signin() {
             localStorage.setItem('token', data.token);
             setMessage('Signin successful!');
             // Redirect to dashboard app
-            window.location.href = 'http://localhost:3001/'; // Updated to match dashboard port
+            window.location.href = process.env.REACT_APP_DASHBOARD_URL || '/'; // Uses env var or root as fallback
         } else {
             setMessage(data.message || 'Signin failed');
         }
