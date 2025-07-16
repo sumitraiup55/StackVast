@@ -21,3 +21,16 @@ function OpenAccount() {
 }
 
 export default OpenAccount;
+
+
+
+axios.post(`${process.env.REACT_APP_API_URL}/signin`, loginData)
+  .then(res => {
+    localStorage.setItem("authToken", res.data.token);
+    // Redirect to dashboard
+    window.location.href = "https://stack-vast-zekz.vercel.app";
+  })
+  .catch(err => {
+    console.error("Login failed:", err);
+  });
+

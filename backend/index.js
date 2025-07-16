@@ -8,6 +8,8 @@ const cors = require("cors");
 const {HoldingsModel}=require('./model/HoldingsModel');
 const {PositionsModel}=require("./model/PositionsModel");   
 const {OrdersModel} = require("./model/OrdersModel");       ;
+const authenticate = require('./middleware/authMiddleware');
+
 
 const authRoutes = require('./auth');
 
@@ -17,13 +19,12 @@ const PORT =process.env.PORT || 3002;
 const URI =process.env.MONGO_URL;
 
 
-const app = express();
+const cors = require("cors");
 
 app.use(cors({
   origin: [
-    'http://localhost:3000',
-    'http://stack-vast-zekz.vercel.app',
-    'https://stack-vast.vercel.app'
+    "http://stack-vast-zekz.vercel.app",
+    "https://stack-vast.vercel.app"
   ],
   credentials: true
 }));
@@ -198,30 +199,31 @@ app.use('/api/auth', authRoutes);
 // res.send("Done!");
 // });
 
-app.get('/allHoldings', async(req,res)=>{
+// 👇👇 Protect this route (GET all holdings)
+app.get('/allHoldings', authenticate, async (req, res) => {
     let allHoldings = await HoldingsModel.find({});
     res.json(allHoldings);
 });
 
-app.get('/allPositions', async(req,res)=>{
+// 👇👇 Protect this route (GET all positions)
+app.get('/allPositions', authenticate, async (req, res) => {
     let allPositions = await PositionsModel.find({});
     res.json(allPositions);
 });
 
-app.post('/newOrder', async(req,res)=>{
+// 👇👇 Protect this route (POST new order)
+app.post('/newOrder', authenticate, async (req, res) => {
     let newOrder = new OrdersModel({
         name: req.body.name,
-       qty: req.body.qty,
-       price: req.body.price,
-       mode: req.body.mode,
-
+        qty: req.body.qty,
+        price: req.body.price,
+        mode: req.body.mode,
     });
 
-    newOrder.save();
-
+    await newOrder.save();
     res.send("Order saved!");
-
 });
+
 
 app.listen(PORT, ()=>{
     console.log("App started!");
