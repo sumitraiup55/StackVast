@@ -9,7 +9,7 @@ function OpenAccount() {
       password: "123456"
     };
 
-    axios.post(${process.env.REACT_APP_API_URL}/signin, loginData)
+axios.post(`${process.env.REACT_APP_API_URL}/signin`, loginData)
       .then(res => {
         localStorage.setItem("authToken", res.data.token);
         // Redirect to dashboard
