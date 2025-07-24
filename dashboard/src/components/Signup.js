@@ -8,7 +8,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axiosInstance.post('/api/auth/signup', { username, password });
+      const res = await axiosInstance.post('https://stackvast-backend.onrender.com/api/auth/signup', { username, password });
       setMessage(res.data.message);
     } catch (err) {
       setMessage('Signup failed');
