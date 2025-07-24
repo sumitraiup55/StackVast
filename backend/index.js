@@ -24,7 +24,8 @@ app.use(cors({
   origin: [
      'http://localhost:3000', // local backend
     'http://localhost:3001', // if you run frontend on this port
-    'https://stackvast-dashboard.onrender.com' //deployed dashboard
+    'https://stackvast-dashboard.onrender.com', //deployed dashboard
+    'https://stackvast-frontend.onrender.com' //deployed frontend
   ],
   credentials: true
 }));
