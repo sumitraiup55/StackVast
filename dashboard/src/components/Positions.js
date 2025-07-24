@@ -4,7 +4,7 @@ import axiosInstance from "../axios";
 const Positions = () => {
   const [positions, setPositions] = useState([]);
   useEffect(() => {
-    axiosInstance.get("https://stackvast-backend.onrender.com/allPositions").then((res) => {
+    axiosInstance.get("/allPositions").then((res) => {
       setPositions(res.data);
     });
   }, []);

@@ -8,7 +8,7 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axiosInstance.get("https://stackvast-backend.onrender.com/allHoldings").then((res) => {
+    axiosInstance.get("/allHoldings").then((res) => {
       setAllHoldings(res.data);
     });
   }, []);

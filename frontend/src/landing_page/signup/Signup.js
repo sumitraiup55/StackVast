@@ -11,13 +11,17 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/signup`, {
+        const res = await fetch(`/api/auth/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ fullName, email, username, password })
         });
         const data = await res.json();
         setMessage(data.message);
+        // Redirect to dashboard if signup is successful (customize condition as needed)
+        if (data.token || data.success) {
+            window.location.href = 'https://stackvast-dashboard.onrender.com';
+        }
     };
 
     return (

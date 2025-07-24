@@ -12,7 +12,7 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleBuyClick = async () => {
-    await axiosInstance.post("https://stackvast-backend.onrender.com/newOrder", {
+    await axiosInstance.post("/newOrder", {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
