@@ -23,8 +23,9 @@ const URI =process.env.MONGO_URI;
 
 app.use(cors({
   origin: [
-    "http://stack-vast-zekz.vercel.app",
-    "https://stack-vast.vercel.app"
+     'http://localhost:3000', // local backend
+    'http://localhost:3001', // if you run frontend on this port
+
   ],
   credentials: true
 }));
