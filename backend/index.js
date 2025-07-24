@@ -18,8 +18,7 @@ const authRoutes = require('./auth');
 const PORT =process.env.PORT || 3002;
 const URI =process.env.MONGO_URI;
 
-
-
+const app = express();
 
 app.use(cors({
   origin: [
